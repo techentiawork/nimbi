@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* overflow: hidden; */
+  ;
+  text-transform: capitalize;
+}
+
+
+body {
+  background-color: #242d32;
+  color: #e6f7fd;
+  font-family: "Inter", sans-serif;
+  overflow-y: auto;
+}
+
+.slippage {
+  background-color: #2e3a41;
+  border-radius: 0.5rem;
+  padding: 0.125rem 0.25rem;
+  border: 0.25rem solid transparent;
+  cursor: pointer;
+}
+
+.slippage.active {
+  background-color: #00ACE6;
+}
+
+nav a.active {
+  background-color: #3a4247;
+  color: #54c7ee;
+}
+
+.btn {
+  color: white;
+  background-color: #00ACE6;
+  padding: 0.5rem 1rem;
+  border-radius: 0.1rem;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  width: max-content;
+}
+
+.btn1 {
+  display: flex;
+  padding: 6px 8px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  border-radius: 4px;
+  background: var(--Foundation-Gray-primary-gray-primary-500, #334047);
+  box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.25) inset, 0px 4px 4px 0px rgba(255, 255, 255, 0.46) inset, 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  color: var(--Whites, #FFF);
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 171.429% */
+}
+
+.btn1:hover {
+  background-color: white;
+  color: #334047;
+}
+
+.btn2 {
+  display: flex;
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 150% */
+  padding: 10px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: var(--Foundation-Blue-blue-400, #33BDEB);
+  box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.25) inset, 0px 4px 4px 0px rgba(255, 255, 255, 0.46) inset, 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn2:hover {
+  background-color: #131212;
+}
+
+.btn-yel {
+  display: flex;
+  padding: 10px 14px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #D9CB00 15.04%, #FF8717 85.36%);
+  box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.25) inset, 0px 4px 4px 0px rgba(255, 255, 255, 0.46) inset, 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  color: var(--Foundation-Gray-primary-gray-primary-600, #2E3A41);
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+  /* 150% */
+}
+
+.btn-yel:hover {
+  background: #131212;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #242d32;
+  border: 1px solid #c4c0c8;
+}
+
+.navbar.active {
+  transform: translateX(0);
+}
+
+.navbar.active~.black {
+  transform: translateX(0)
+}
+
+.fixed {
+  position: fixed;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 12px;
+  background-color: #2e2e2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #334047;
+  border-radius: 6px;
+  border: 3px solid #2f2f2f;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #1c2327;
+}
+
+.main input[type=checkbox] {
+  visibility: hidden;
+}
+
+.checkbox-container {
+  /* position: absolute; */
+  top: -2px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: transparent;
+  border: 1px solid #5c666c;
+  border-radius: 0.125rem;
+}
+
+.main input:checked~.checkbox-container {
+  background-color: #00ACE6;
+}
+
+.checkbox-container::after {
+  content: "";
+  position: absolute;
+  display: none;
+  right: 4px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.main input:checked~.checkbox-container::after {
+  display: block;
+}
+
+.app-wolf {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: url("./assets/wolf-1.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.app-grad {
+  background: linear-gradient(0deg, #0D1418 0%, rgba(28, 35, 39, 0.60) 68.5%, #0C151A 100%);
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.game-text-grad {
+  background: var(--Gold-Kazi, linear-gradient(135deg, #D9CB00 15.04%, #FF8717 85.36%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 133.333% */
+  text-transform: uppercase;
+}
+
+@media(width<768px) {
+  .app-wolf {
+    background: url("./assets/wolf-2.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .app-grad {}
+}
+
+@media(width<580px) {
+  .app-wolf {
+    background: url("./assets/wolf-3.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .app-grad {}
+}
