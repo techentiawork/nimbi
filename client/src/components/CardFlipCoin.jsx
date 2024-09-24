@@ -120,7 +120,7 @@ function CardFlipCoin() {
     }
 
     return (
-        <>
+        <div className="min-h-[75vh]">
             <Link to={"/"} className="p-2 flex items-center gap-1 w-fit">
                 <img src={arrowBack} alt="" />
                 <div className="px-1">
@@ -224,7 +224,7 @@ function CardFlipCoin() {
                             </div>
 
             }
-        </>
+        </div>
     );
 }
 

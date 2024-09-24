@@ -65,6 +65,11 @@ function Hero() {
         }
     };
 
+    const activeButton =(e)=>{
+        document.querySelector('.btn1.active')?.classList.remove('active');
+        e.target.classList.add('active')
+    }
+
     return (
         <>
 
@@ -106,14 +111,17 @@ function Hero() {
                         </div>
                     </div>
                     <div className="h-12 px-2 xl:w-[302px] w-full py-1.5 bg-[#303638]/40 rounded-[5px] items-center gap-3.5 inline-flex">
-                        <div className="btn1 w-full">
+                        <div onClick={activeButton} className="btn1 active">
                             Lottery
                         </div>
-                        <div className="h-9 w-full px-2 py-1.5 rounded justify-center items-start gap-1 flex">
+                        <div onClick={activeButton} className="btn1">
+                            How to play
+                        </div>
+                        {/* <div className="h-9 w-full px-2 py-1.5 rounded justify-center items-start gap-1 flex">
                             <div className="px-1 justify-start items-start gap-2.5 flex">
                                 <div className="text-center text-[#767f84] text-sm font-medium font-['Inter'] leading-normal">How to play</div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="flex gap-[79px] flex-col w-full">
