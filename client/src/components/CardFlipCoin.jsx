@@ -121,7 +121,7 @@ function CardFlipCoin() {
 
     return (
         <>
-            <Link to={"/home"} className="p-2 flex items-center gap-1 w-fit">
+            <Link to={"/"} className="p-2 flex items-center gap-1 w-fit">
                 <img src={arrowBack} alt="" />
                 <div className="px-1">
                     <div className="text-center text-[#ebeced] text-sm font-medium font-['Inter'] leading-normal">back</div>
@@ -191,7 +191,7 @@ function CardFlipCoin() {
                                         <button onClick={restart} to={"/flip-coin"} className="btn-yel w-full">
                                             Try again
                                         </button>
-                                        <Link to={"/home"} className="px-3.5 py-2.5 rounded border border-white justify-center items-start gap-2.5 inline-flex w-full">
+                                        <Link to={"/"} className="px-3.5 py-2.5 rounded border border-white justify-center items-start gap-2.5 inline-flex w-full">
                                             <div className="px-1 justify-start items-start gap-2.5 flex w-full">
                                                 <div className="text-center text-white w-full text-base font-medium font-['Inter'] leading-normal">Back to rooms</div>
                                             </div>
@@ -214,7 +214,7 @@ function CardFlipCoin() {
                                         <button onClick={restart} to={"/flip-coin"} className="btn-yel w-full">
                                             Try again
                                         </button>
-                                        <Link to={"/home"} className="px-3.5 py-2.5 rounded border border-white justify-center items-start gap-2.5 inline-flex w-full">
+                                        <Link to={"/"} className="px-3.5 py-2.5 rounded border border-white justify-center items-start gap-2.5 inline-flex w-full">
                                             <div className="px-1 justify-start items-start gap-2.5 flex w-full">
                                                 <div className="text-center text-white w-full text-base font-medium font-['Inter'] leading-normal">Back to rooms</div>
                                             </div>
@@ -240,7 +240,7 @@ export default CardFlipCoin;
         <button onClick={restart} className="btn-yel w-full">
             Play again
         </button>
-        <Link to={"/home"} className="px-3.5 py-2.5 rounded border border-white justify-center items-start gap-2.5 inline-flex">
+        <Link to={"/"} className="px-3.5 py-2.5 rounded border border-white justify-center items-start gap-2.5 inline-flex">
             <div className="px-1 justify-start items-start gap-2.5 flex">
                 <div className="text-center text-white text-base font-medium font-['Inter'] leading-normal">Back to rooms</div>
             </div>

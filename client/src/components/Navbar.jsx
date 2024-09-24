@@ -10,9 +10,7 @@ import {
     setWalletAddress,
 } from "../store/slice";
 import KAZIABI from "../utils/KAZI.json";
-import {message} from "antd"
-
-
+import { message } from "antd"
 
 const kaziTokenABI = KAZIABI;
 
@@ -31,6 +29,9 @@ function Navbar() {
                 const accounts = await window.ethereum.request({
                     method: "eth_requestAccounts",
                 });
+
+                await switchToSepolia();
+
                 const kaziTokenContract = new web3.eth.Contract(
                     kaziTokenABI,
                     kaziTokenAddress
@@ -43,26 +44,35 @@ function Navbar() {
                 dispatch(setWalletAddress(accounts[0]));
                 dispatch(setUserBalance((parseInt(balance) / 10 ** 18).toFixed(2)));
                 dispatch(setLoginState(true));
-                console.log('clicked')
-                message.success("wallet connected successfully")
 
+                message.success("Wallet connected successfully");
             } catch (error) {
-                dispatch(
-                    setAlertMessage({
-                        message: "Error connecting to MetaMask",
-                        type: "alert",
-                    })
-                );
-                setTimeout(() => dispatch(setAlertMessage({})), 1000);
+                message.error("Error connecting to MetaMask");
             }
         } else {
-            message.error("MetaMask is not installed")
+            message.error("MetaMask is not installed");
+        }
+    };
+
+    const switchToSepolia = async () => {
+        if (window.ethereum) {
+            try {
+                await window.ethereum.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: "0xaa36a7" }],
+                });
+            } catch (switchError) {
+                message.error("Failed to switch to Sepolia");
+            }
+        } else {
+            message.error("MetaMask is not installed");
         }
     };
 
     useEffect(() => {
-        connectWallet();
+        connectWallet()
     }, []);
+
 
     return (
         <>
@@ -83,20 +93,24 @@ function Navbar() {
                             >
                                 FAQ
                             </Link>
+                            <div className="hidden md:block">
+
+                           
                             {userBalance ? (
-							<div>
-								<li>KAZI Balance: {userBalance}</li>
-							</div>
-						) : (
-                            <button
-                                onClick={connectWallet} className="text-sm font-medium h-9  px-2 py-1.5 border hover:border-[transparent] border-[#4e5055] justify-center items-center gap-1 xs:inline-flex hidden">
-                                <div className="w-4 h-4 relative">
-                                    <img src={flash} className="w-4 h-4 left-0 top-0 absolute" />
+                                <div>
+                                    <li>KAZI Balance: {userBalance}</li>
                                 </div>
-                                <div className="px-1">
-                                    Connect Wallet
-                                </div>
-                            </button>) }
+                            ) : (
+                                <button
+                                    onClick={connectWallet} className="text-sm font-medium h-9  px-2 py-1.5 border hover:border-[transparent] border-[#4e5055] justify-center items-center gap-1 xs:inline-flex hidden">
+                                    <div className="w-4 h-4 relative">
+                                        <img src={flash} className="w-4 h-4 left-0 top-0 absolute" />
+                                    </div>
+                                    <div className="px-1">
+                                        Connect Wallet
+                                    </div>
+                                </button>)}
+                        </div>
                         </div>
                     </div>
                 </nav>

@@ -71,7 +71,7 @@ function Wallet({ setOpenWallet }) {
           <div className="w-full h-[1px] bg-[#5C666C]"></div>
           <div className="gap-[25px_12px] grid grid-cols-3 xxs:grid-cols-4">
             {
-              wallet.map((item, key) => <Link to={"/home"} key={key} className="w-[60px] max-w-full min-h-[60px] flex-col justify-between items-center gap-[5px] inline-flex">
+              wallet.map((item, key) => <Link to={"/"} key={key} className="w-[60px] max-w-full min-h-[60px] flex-col justify-between items-center gap-[5px] inline-flex">
                 <div className="w-[35px] min-h-[35px] relative">
                   <img src={item.icon} alt="" />
                 </div>

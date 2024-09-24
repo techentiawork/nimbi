@@ -1,9 +1,69 @@
 import { Link } from "react-router-dom";
 import { cryptocurrency, flash, wolf, yellowFlash } from "../assets";
-import { useSelector } from "react-redux";
-function Hero({ setOpenWallet }) {
+import { useDispatch, useSelector } from "react-redux";
+import Web3 from "web3";
+import { setUserBalance } from "../store/slice";
+import { message } from "antd";
+import KAZIABI from "../utils/KAZI.json";
+import { useEffect } from "react";
+
+const kaziTokenABI = KAZIABI;
+
+const kaziTokenAddress = import.meta.env.VITE_KAZI_TOKEN_ADDRESS;
+
+function Hero() {
+
+    const dispatch = useDispatch();
 
     const userBalance = useSelector((state) => state.userBalance);
+
+    const connectWallet = async () => {
+        if (typeof window.ethereum !== "undefined") {
+            const web3 = new Web3(window.ethereum);
+    
+            try {
+                const accounts = await window.ethereum.request({
+                    method: "eth_requestAccounts",
+                });
+    
+                await switchToSepolia();
+    
+                const kaziTokenContract = new web3.eth.Contract(
+                    kaziTokenABI,
+                    kaziTokenAddress
+                );
+    
+                const balance = await kaziTokenContract.methods
+                    .balanceOf(accounts[0])
+                    .call();
+    
+                dispatch(setWalletAddress(accounts[0]));
+                dispatch(setUserBalance((parseInt(balance) / 10 ** 18).toFixed(2)));
+                dispatch(setLoginState(true));
+    
+                message.success("Wallet connected successfully");
+            } catch (error) {
+                message.error("Error connecting to MetaMask");
+            }
+        } else {
+            message.error("MetaMask is not installed");
+        }
+    };
+    
+    const switchToSepolia = async () => {
+        if (window.ethereum) {
+            try {
+                await window.ethereum.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: "0xaa36a7" }],
+                });
+            } catch (switchError) {
+                message.error("Failed to switch to Sepolia");
+            }
+        } else {
+            message.error("MetaMask is not installed");
+        }
+    };
 
     return (
         <>
@@ -62,7 +122,7 @@ function Hero({ setOpenWallet }) {
                         <div className=" text-[#ebeced] text-[22px] font-normal font-['Roboto'] uppercase leading-10">Flip first coin AND GET BONUS</div>
                         {
                             !userBalance ?
-                                <div onClick={() => setOpenWallet(true)} className="btn2 flex gap-2.5 xs:w-[176px] w-full">
+                                <div onClick={connectWallet} className="btn2 flex gap-2.5 xs:w-[176px] w-full">
                                     <img src={flash} />
                                     <div className="">
                                         Connect Wallet

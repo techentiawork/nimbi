@@ -11,8 +11,8 @@ function Home({ setOpenWallet }) {
             <Navbar />
             <div className="lg:w-[80%] 3xl:w-[1504px] w-full px-4 max-w-full mx-auto ">
                 <Routes>
-                    <Route path="/" element={<ConnectWallet />} />
-                    <Route path="/home" element={<Hero/>} />
+                    {/* <Route path="/" element={<ConnectWallet />} /> */}
+                    <Route path="/" element={<Hero/>} />
                     <Route path="/game" element={<FlipCoin />} />
                     <Route path="/game/:game" element={<CardFlipCoin />} />
                 </Routes>
