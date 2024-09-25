@@ -23,11 +23,11 @@ function Footer() {
                                     <img src={reddit} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
                                 </a>
                             </li>
-{/*                             <li>
-                                <a href="https://web.telegram.org/k/#@nimbitoken" target="_blank" rel="noopener noreferrer">
-                                    <img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                             <li>
+                                <a href="https://x.com/@nimbitoken" target="_blank" rel="noopener noreferrer">
+                                    <img src={xicon} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
                                 </a>
-                            </li> */}
+                            </li>
                             <li>
                                 <a href="https://www.youtube.com/@KaziSafari" target="_blank" rel="noopener noreferrer">
                                     <img src={yt} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
