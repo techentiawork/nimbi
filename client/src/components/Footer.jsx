@@ -8,11 +8,34 @@ function Footer() {
                     <div className="flex flex-col items-center gap-[7px]">
                         <p className='text-[#EBECED] '>Our community</p>
                         <ul className="list-none flex gap-[13px] items-center">
-                            <li><img src={discord} className='w-5 rounded-[4px] cursor-pointer' alt="https://discord.gg/nimbi" /></li>
-                            <li><img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="https://web.telegram.org/k/#@NimbiWolfpackVIP" /></li>
-                            <li><img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="https://web.telegram.org/k/#@nimbitoken" /></li>
-                            <li><img src={reddit} className='w-5 rounded-[4px] cursor-pointer' alt="https://www.reddit.com/user/nimbitoken/?rdt=35960" /></li>
-                            <li><img src={yt} className='w-5 rounded-[4px] cursor-pointer' alt="https://www.youtube.com/@KaziSafari" /></li>
+                            <li>
+                                <a href="https://discord.gg/nimbi" target="_blank" rel="noopener noreferrer">
+                                    <img src={discord} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://web.telegram.org/k/#@NimbiWolfpackVIP" target="_blank" rel="noopener noreferrer">
+                                    <img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.reddit.com/user/nimbitoken/?rdt=35960" target="_blank" rel="noopener noreferrer">
+                                    <img src={reddit} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://web.telegram.org/k/#@nimbitoken" target="_blank" rel="noopener noreferrer">
+                                    <img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/@KaziSafari" target="_blank" rel="noopener noreferrer">
+                                    <img src={yt} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                </a>
+                            </li>
+                           
+
+                          
                         </ul>
                     </div>
                     <p className="text-white text-center text-[11px] font-normal font-roboto">Copyright &copy; 2024 NIMBI.COM | All rights reserved.</p>
