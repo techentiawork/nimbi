@@ -4,10 +4,59 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { message,Spin } from 'antd'
 import { setUserBalance } from "../store/slice";
-import Web3 from 'web3'
+// import Web3 from 'web3'
 import KAZIABI from "../utils/KAZI.json";
 import poolABI from "../utils/Pool.json";
 import axios from 'axios'
+import { createWeb3Modal, defaultConfig, useWeb3ModalProvider } from '@web3modal/ethers5/react'
+import { ethers } from 'ethers';
+const projectId = '29fa5b8dbe55e7aaa7a0ef6baa46156b'
+
+// 2. Set chains
+const mainnet = {
+    chainId: 1,
+    name: 'Ethereum',
+    currency: 'ETH',
+    explorerUrl: 'https://etherscan.io',
+    rpcUrl: 'https://cloudflare-eth.com'
+}
+const sepolia = {
+    chainId: 11155111,
+    name: 'Sepolia',
+    currency: 'ETH',
+    explorerUrl: 'https://sepolia.etherscan.io',
+    rpcUrl: 'https://rpc.sepolia.org',
+};
+
+// 3. Create a metadata object
+const metadata = {
+    name: 'My Website',
+    description: 'My Website description',
+    url: 'https://mywebsite.com', // origin must match your domain & subdomain
+    icons: ['https://avatars.mywebsite.com/']
+}
+
+// 4. Create Ethers config
+const ethersConfig = defaultConfig({
+    /*Required*/
+    metadata,
+
+    /*Optional*/
+    enableEIP6963: true, // true by default
+    enableInjected: true, // true by default
+    enableCoinbase: true, // true by default
+    rpcUrl: '...', // used for the Coinbase SDK
+    defaultChainId: 1 // used for the Coinbase SDK
+})
+
+// 5. Create a Web3Modal instance
+createWeb3Modal({
+    ethersConfig,
+    chains: [mainnet, sepolia],
+    projectId,
+    enableAnalytics: true // Optional - defaults to your Cloud configuration
+})
+
 
 const kaziTokenABI = KAZIABI;
 
@@ -25,6 +74,9 @@ function CardFlipCoin() {
     const [isDepositing, setIsDepositing] = useState(false);
     const [amountInWei, setAmountInWei] = useState()
     const [paymentNotDone, setPaymentNotDone] = useState(false)
+    const { walletProvider } = useWeb3ModalProvider()
+    const [walletAddressCheck, setWalletAddressCheck] = useState(null);
+
 
 
     const { game } = useParams();
@@ -40,6 +92,20 @@ function CardFlipCoin() {
     const amount = games[game]
 
     const userBalance = useSelector((state) => state.userBalance);
+    const handleWalletConnect = async () => {
+        const provider = new ethers.providers.Web3Provider(walletProvider);
+        const signer = provider.getSigner();
+        const mepToken = new ethers.Contract(kaziTokenAddress, kaziTokenABI, signer);
+
+        const balance = await mepToken.balanceOf(await signer.getAddress());
+        dispatch(setUserBalance(parseInt(ethers.utils.formatUnits(balance, 9))));
+    };
+
+    useEffect(() => {
+        if (walletProvider) {
+            handleWalletConnect();
+        }
+    }, [walletProvider]);
 
     const startGame = async () => {
         if (!userBalance) {
@@ -51,18 +117,26 @@ function CardFlipCoin() {
         } else if (!isPlaying && userBalance > amount) {
             setIsDepositing(true)
             try {
+                const provider = new ethers.providers.Web3Provider(walletProvider);
+                const signer = provider.getSigner();
+    
+                const walletAddress = await signer.getAddress();
+                setWalletAddressCheck(walletAddress);
+                // const web3 = new Web3(window.ethereum);
+                const poolContract = new ethers.Contract(poolContractAddress, poolAbi, signer);
+                const kaziToken = new ethers.Contract(kaziTokenAddress, kaziTokenABI, signer);
+                // const poolContract = new web3.eth.Contract(poolAbi, poolContractAddress);
+                // const kaziToken = new web3.eth.Contract(kaziTokenABI, kaziTokenAddress);
 
-                const web3 = new Web3(window.ethereum);
-
-                const poolContract = new web3.eth.Contract(poolAbi, poolContractAddress);
-                const kaziToken = new web3.eth.Contract(kaziTokenABI, kaziTokenAddress);
-
-                const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
+                // const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
+                const amountInWei = ethers.utils.parseEther(amount.toString());
+                const formattedBetAmount = amountInWei.toString();
                 setAmountInWei(amountInWei)
                 setPaymentNotDone(true)
-                const approveTx = await kaziToken.methods.approve(poolContractAddress, amountInWei).send({ from: walletAddress });
-
-                const depositTx = await poolContract.methods.deposit(amountInWei).send({ from: walletAddress });
+                // const approveTx = await kaziToken.approve(poolContractAddress, amountInWei);
+                // await approveTx.wait();
+                // const depositTx = await poolContract.deposit(amountInWei);
+                // await depositTx.wait();
                 setPaymentNotDone(false)
                 const result = await axios.get(`${import.meta.env.VITE_SERVER_URL}/result?amount=${amount}`)
                 sessionStorage.setItem('result', result.data)
@@ -74,7 +148,7 @@ function CardFlipCoin() {
                 if (result.data === coinSide) {
                     const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/distribute`, {
                         walletAddress: walletAddress,
-                        amount: amountInWei,
+                        amount: formattedBetAmount,
                     }); 
 
                     if (!res.data.success) {

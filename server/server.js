@@ -107,8 +107,8 @@ app.get("/result", async (req, res) => {
 app.post("/distribute", async (req, res) => {
     try {
         const { walletAddress, amount } = req.body;
-
         const newAmount = BigInt(amount * 2).toString();
+        console.log(walletAddress,newAmount);
         const response = await transferPool(walletAddress, newAmount);
 
         if (response === "amount transferred successfully")
