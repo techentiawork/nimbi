@@ -14,23 +14,23 @@ function Footer() {
                                 </a>
                             </li>
                             <li>
-                                <a href="https://web.telegram.org/k/#@NimbiWolfpackVIP" target="_blank" rel="noopener noreferrer">
-                                    <img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                <a href="https://t.me/nimbitokenvip" target="_blank" rel="noopener noreferrer">
+                                    <img src={telegram} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Telegram" />
                                 </a>
                             </li>
                             <li>
                                 <a href="https://www.reddit.com/user/nimbitoken/?rdt=35960" target="_blank" rel="noopener noreferrer">
-                                    <img src={reddit} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                    <img src={reddit} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Reddit" />
                                 </a>
                             </li>
                              <li>
                                 <a href="https://x.com/@nimbitoken" target="_blank" rel="noopener noreferrer">
-                                    <img src={xicon} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                    <img src={xicon} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on X" />
                                 </a>
                             </li>
                             <li>
                                 <a href="https://www.youtube.com/@KaziSafari" target="_blank" rel="noopener noreferrer">
-                                    <img src={yt} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Discord" />
+                                    <img src={yt} className='w-5 rounded-[4px] cursor-pointer' alt="Join us on Youtube" />
                                 </a>
                             </li>
                            
