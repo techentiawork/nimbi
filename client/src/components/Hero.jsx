@@ -6,6 +6,8 @@ import { setUserBalance } from "../store/slice";
 import { message } from "antd";
 import KAZIABI from "../utils/KAZI.json";
 import { useEffect } from "react";
+import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers5/react'
+import { ethers } from 'ethers'
 
 const kaziTokenABI = KAZIABI;
 
@@ -14,56 +16,97 @@ const kaziTokenAddress = import.meta.env.VITE_KAZI_TOKEN_ADDRESS;
 function Hero() {
 
     const dispatch = useDispatch();
+    const { open, provider } = useWeb3Modal()
+    const { address, isConnected } = useWeb3ModalAccount()
+    const { walletProvider } = useWeb3ModalProvider()
+    const [walletConnected, setWalletConnected] = useState(false)
+    const [isLoadingBalance, setIsLoadingBalance] = useState(false)
+    
+    useEffect(() => {
+        setWalletConnected(!!provider)
+      }, [provider])  
+
 
     const userBalance = useSelector((state) => state.userBalance);
 
+    // const connectWallet = async () => {
+    //     if (typeof window.ethereum !== "undefined") {
+    //         const web3 = new Web3(window.ethereum);
+    
+    //         try {
+    //             const accounts = await window.ethereum.request({
+    //                 method: "eth_requestAccounts",
+    //             });
+    
+    //             await switchToSepolia();
+    
+    //             const kaziTokenContract = new web3.eth.Contract(
+    //                 kaziTokenABI,
+    //                 kaziTokenAddress
+    //             );
+    
+    //             const balance = await kaziTokenContract.methods
+    //                 .balanceOf(accounts[0])
+    //                 .call();
+    
+    //             dispatch(setWalletAddress(accounts[0]));
+    //             dispatch(setUserBalance((parseInt(balance) / 10 ** 18).toFixed(2)));
+    //             dispatch(setLoginState(true));
+    
+    //             message.success("Wallet connected successfully");
+    //         } catch (error) {
+    //             message.error("Error connecting to MetaMask");
+    //         }
+    //     } else {
+    //         message.error("MetaMask is not installed");
+    //     }
+    // };
+    
+    // const switchToSepolia = async () => {
+    //     if (window.ethereum) {
+    //         try {
+    //             await window.ethereum.request({
+    //                 method: "wallet_switchEthereumChain",
+    //                 params: [{ chainId: "0xaa36a7" }],
+    //             });
+    //         } catch (switchError) {
+    //             message.error("Failed to switch to Sepolia");
+    //         }
+    //     } else {
+    //         message.error("MetaMask is not installed");
+    //     }
+    // };
+
+    
     const connectWallet = async () => {
-        if (typeof window.ethereum !== "undefined") {
-            const web3 = new Web3(window.ethereum);
+        if (typeof window.ethereum !== 'undefined') {
+          try {
+            setIsLoadingBalance(true)
+            if (isConnected) {
+              const ethersProvider = new ethers.providers.Web3Provider(walletProvider)
+              const signer = ethersProvider.getSigner()
+              const contract = new ethers.Contract(kaziTokenAddress, kaziTokenABI, signer)
+              const balance = await contract.balanceOf(address)
+              const decimals = await contract.decimals()
     
-            try {
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                });
-    
-                await switchToSepolia();
-    
-                const kaziTokenContract = new web3.eth.Contract(
-                    kaziTokenABI,
-                    kaziTokenAddress
-                );
-    
-                const balance = await kaziTokenContract.methods
-                    .balanceOf(accounts[0])
-                    .call();
-    
-                dispatch(setWalletAddress(accounts[0]));
-                dispatch(setUserBalance((parseInt(balance) / 10 ** 18).toFixed(2)));
-                dispatch(setLoginState(true));
-    
-                message.success("Wallet connected successfully");
-            } catch (error) {
-                message.error("Error connecting to MetaMask");
+              dispatch(setUserBalance(balance / Math.pow(10, decimals)))
+              dispatch(setLoginState(true))
+              setWalletConnected(true)
+            } else {
+              await open()
             }
+            setIsLoadingBalance(false)
+          } catch (error) {
+            message.error('Error connecting to MetaMask or fetching balance')
+            setIsLoadingBalance(false)
+          }
         } else {
-            message.error("MetaMask is not installed");
+            message.error('Wallets not found')
         }
-    };
-    
-    const switchToSepolia = async () => {
-        if (window.ethereum) {
-            try {
-                await window.ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [{ chainId: "0xaa36a7" }],
-                });
-            } catch (switchError) {
-                message.error("Failed to switch to Sepolia");
-            }
-        } else {
-            message.error("MetaMask is not installed");
-        }
-    };
+      }
+      const handleConnectWallet = async () => {
+        await connectWallet()
+      }
 
     const activeButton =(e)=>{
         document.querySelector('.btn1.active')?.classList.remove('active');
@@ -130,7 +173,7 @@ function Hero() {
                         <div className=" text-[#ebeced] text-[22px] font-normal font-['Roboto'] uppercase leading-10">Flip first coin AND GET BONUS</div>
                         {
                             !userBalance ?
-                                <div onClick={connectWallet} className="btn2 flex gap-2.5 xs:w-[176px] w-full">
+                                <div onClick={handleConnectWallet} className="btn2 flex gap-2.5 xs:w-[176px] w-full">
                                     <img src={flash} />
                                     <div className="">
                                         Connect Wallet

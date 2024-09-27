@@ -133,10 +133,10 @@ function CardFlipCoin() {
                 const formattedBetAmount = amountInWei.toString();
                 setAmountInWei(amountInWei)
                 setPaymentNotDone(true)
-                // const approveTx = await kaziToken.approve(poolContractAddress, amountInWei);
-                // await approveTx.wait();
-                // const depositTx = await poolContract.deposit(amountInWei);
-                // await depositTx.wait();
+                const approveTx = await kaziToken.approve(poolContractAddress, amountInWei);
+                await approveTx.wait();
+                const depositTx = await poolContract.deposit(amountInWei);
+                await depositTx.wait();
                 setPaymentNotDone(false)
                 const result = await axios.get(`${import.meta.env.VITE_SERVER_URL}/result?amount=${amount}`)
                 sessionStorage.setItem('result', result.data)
