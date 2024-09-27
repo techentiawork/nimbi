@@ -218,13 +218,13 @@ function CardFlipCoin() {
                                 <div className="min-h-[175px] flex-col justify-start items-center gap-[23px] flex">
                                     <div className="justify-start items-start gap-[23px] inline-flex">
                                         <div className="relative">
-                                            <img src={coinh} alt="Coin H" onClick={() => setCoinSide("head")} />
+                                            <img src={coinh} alt="Coin H" onClick={() => setCoinSide("head")} className="cursor-pointer" />
                                             {
                                                 coinSide == "head" && <img className="absolute bottom-0 left-0" src={circle} alt="Circle" />
                                             }
                                         </div>
                                         <div className="relative">
-                                            <img src={coint} alt="Coin H" onClick={() => setCoinSide("tail")} />
+                                            <img src={coint} alt="Coin H" onClick={() => setCoinSide("tail")} className="cursor-pointer" />
                                             {
                                                 coinSide == "tail" && <img className="absolute bottom-0 right-0" src={circle} alt="Circle" />
                                             }
