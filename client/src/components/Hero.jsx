@@ -5,7 +5,7 @@ import Web3 from "web3";
 import { setUserBalance } from "../store/slice";
 import { message } from "antd";
 import KAZIABI from "../utils/KAZI.json";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers5/react'
 import { ethers } from 'ethers'
 
@@ -173,7 +173,7 @@ function Hero() {
                         <div className=" text-[#ebeced] text-[22px] font-normal font-['Roboto'] uppercase leading-10">Flip first coin AND GET BONUS</div>
                         {
                             !userBalance ?
-                                <div onClick={handleConnectWallet} className="btn2 flex gap-2.5 xs:w-[176px] w-full">
+                                <div onClick={handleConnectWallet} className="btn2 flex gap-2.5 xs:w-[176px] w-full cursor-pointer">
                                     <img src={flash} />
                                     <div className="">
                                         Connect Wallet
