@@ -130,7 +130,7 @@ function Navbar() {
                                 Home
                             </Link>
                             <Link
-                                to={"/"}
+                                to={"/faq"}
                                 className="h-9 px-3 py-1.5 rounded justify-center items-center gap-1 inline-flex text-center text-white text-sm font-medium font-['Inter'] leading-normal"
                             >
                                 FAQ

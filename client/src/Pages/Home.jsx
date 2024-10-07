@@ -5,7 +5,7 @@ import ConnectWallet from "../components/ConnectWallet";
 import FlipCoin from "../components/FlipCoin";
 import CardFlipCoin from "../components/CardFlipCoin";
 
-function Home({ setOpenWallet }) {
+function Home() {
     return (
         <div className="h-full min-h-screen flex flex-col">
             <Navbar />

@@ -54,8 +54,10 @@ import cat from './cat.svg'
 import wincat from './wincat.svg'
 import wallet_98 from './98_Wallet.svg'
 import walletConnect from './wallet_connect.svg'
+import icon from "./Icon.svg";
+
 export {
-  nimbi,
+  icon,  nimbi,
   mlogo,
   reload,
   cross,

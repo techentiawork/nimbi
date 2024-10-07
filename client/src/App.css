@@ -211,6 +211,27 @@ nav a.active {
   overflow-x: hidden;
 }
 
+.accordion>p {
+  height: 0;
+  transform: translateY(5rem);
+}
+
+.accordion.active>p {
+  height: 100%;
+  transition: all 0.2s ease;
+  transform: translateY(0);
+}
+
+.accordion img {
+  rotate: 0deg;
+  transition: all 0.3s ease;
+}
+
+.accordion.active img {
+  rotate: 90deg;
+  transition: all 0.3s ease;
+}
+
 .game-text-grad {
   background: var(--Gold-Kazi, linear-gradient(135deg, #D9CB00 15.04%, #FF8717 85.36%));
   background-clip: text;
